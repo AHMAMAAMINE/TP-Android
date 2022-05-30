@@ -1,0 +1,111 @@
+class Patisserie {
+  String type;
+  List<Features> features;
+
+  Patisserie({this.type, this.features});
+
+  Patisserie.fromJson(Map<String, dynamic> json) {
+    type = json['type'];
+    if (json['features'] != null) {
+      features = new List<Features>();
+      json['features'].forEach((v) {
+        features.add(new Features.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['type'] = this.type;
+    if (this.features != null) {
+      data['features'] = this.features.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Features {
+  Geometry geometry;
+  String type;
+  Properties properties;
+
+  Features({this.geometry, this.type, this.properties});
+
+  Features.fromJson(Map<String, dynamic> json) {
+    geometry = json['geometry'] != null
+        ? new Geometry.fromJson(json['geometry'])
+        : null;
+    type = json['type'];
+    properties = json['properties'] != null
+        ? new Properties.fromJson(json['properties'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.geometry != null) {
+      data['geometry'] = this.geometry.toJson();
+    }
+    data['type'] = this.type;
+    if (this.properties != null) {
+      data['properties'] = this.properties.toJson();
+    }
+    return data;
+  }
+}
+
+class Geometry {
+  String type;
+  List<double> coordinates;
+
+  Geometry({this.type, this.coordinates});
+
+  Geometry.fromJson(Map<String, dynamic> json) {
+    type = json['type'];
+    coordinates = json['coordinates'].cast<double>();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['type'] = this.type;
+    data['coordinates'] = this.coordinates;
+    return data;
+  }
+}
+
+class Properties {
+  String category;
+  String hours;
+  String description;
+  String name;
+  String phone;
+  String storeid;
+
+  Properties(
+      {this.category,
+        this.hours,
+        this.description,
+        this.name,
+        this.phone,
+        this.storeid});
+
+  Properties.fromJson(Map<String, dynamic> json) {
+    category = json['category'];
+    hours = json['hours'];
+    description = json['description'];
+    name = json['name'];
+    phone = json['phone'];
+    storeid = json['storeid'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['category'] = this.category;
+    data['hours'] = this.hours;
+    data['description'] = this.description;
+    data['name'] = this.name;
+    data['phone'] = this.phone;
+    data['storeid'] = this.storeid;
+    return data;
+  }
+}
